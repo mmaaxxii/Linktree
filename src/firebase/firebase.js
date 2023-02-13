@@ -8,17 +8,17 @@ import {getFirestore, collection, addDoc, doc, getDocs, getDoc, query, where, se
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 
-//console.log("Hola" + {process.env.REACT_APP_APIKEY})
 
 
 // Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_APIKEY,
   authDomain: process.env.REACT_APP_AUTHDOMAIN,
   projectId: process.env.REACT_APP_PROJECTID,
   storageBucket: process.env.REACT_APP_STORAGEBUCKET,
   messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
-  appId: process.env.REACT_APP_APPID,
+  appId: process.env.REACT_APP_APPID, 
   };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
