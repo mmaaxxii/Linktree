@@ -12,9 +12,7 @@ import PublicProfileView from './routes/publicProfileView';
 import LoginView from './routes/loginView';
 import ChooseUsernameView from './routes/chooseUsernameView';
 
-
-
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
       <Route path='/' element={<App/>} />
@@ -26,7 +24,7 @@ ReactDOM.render(
       <Route path='choose-username' element={<ChooseUsernameView/>} />
     </Routes> 
   </BrowserRouter>,
-  document.getElementById("root")
+  
 );
 
 
