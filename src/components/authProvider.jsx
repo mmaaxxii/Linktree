@@ -1,7 +1,7 @@
-import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth"
 import { connectStorageEmulator } from "firebase/storage"
 import { useEffect , useState} from "react"
-import { auth , userExists } from '../firebase/firebase'
+import { auth , getUserInfo, registerNewUser, userExists } from '../firebase/firebase'
 import { useNavigate } from "react-router-dom"
 
 
@@ -17,9 +17,22 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
                 const inRegistered = await userExists(user.uid)
                 if (inRegistered) {
                     //TODO: redirigir a Dashboard 
+                    const userInfo = await getUserInfo(user.uid)
+                    if(user.processCompleted){
+                        onUserLoggedIn(userInfo)
+                    }else {
+                        onUserNotRegistered(userInfo)
+                    }
                     onUserLoggedIn(user)
                 } else {
                     //TODO: redirigir a choose username  
+                    await registerNewUser({
+                        uid: user.uid,
+                        displayName: user.displayName,
+                        profilePicture: '',
+                        username: '',
+                        processCompleted:false,
+                    })
                     onUserNotRegistered(user)
                 }            
              }else {
