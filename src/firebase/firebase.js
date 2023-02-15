@@ -33,7 +33,10 @@ export async function userExists (uid){
   return res.exists()
 }
 
+
+
 export async function existsUsername(username){
+  
   const users = []
   const docsRef = collection(db, 'users')
   const q = query(docsRef,where('username', '==', username))
@@ -41,6 +44,7 @@ export async function existsUsername(username){
   querySnapshot.forEach(doc => {
     users.push(doc.data())
   })
+  
   return users.length ? users[0].uid : null
 }
 

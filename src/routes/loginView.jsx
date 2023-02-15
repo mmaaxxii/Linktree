@@ -16,6 +16,7 @@ export default function LoginView() {
     3: login pero sin registro 
     4: no hay nadie logueado
     5: ya existe username
+    6: nuevo username, click para continuar 
     */
     const [state, setCurrentState] = useState(0)
 
@@ -94,10 +95,10 @@ export default function LoginView() {
     }
 
     return <AuthProvider 
-    onUserLoggedIn={handleUserLoggedIn} 
-    onUserNotRegistered={handleUserNotRegistered}
-    onUserNotLoggeedIn={handleUserNotLoggedIn} >
-        <div> Loading ...</div>
-    </AuthProvider>
+            onUserLoggedIn={handleUserLoggedIn} 
+            onUserNotRegistered={handleUserNotRegistered}
+            onUserNotLoggeedIn={handleUserNotLoggedIn} >
+                 <div> Loading ...</div>
+            </AuthProvider>
 
 }
