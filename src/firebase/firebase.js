@@ -35,17 +35,18 @@ export async function userExists (uid){
 
 
 
-export async function existsUsername(username){
-  
-  const users = []
+export async function existsUsername(username) {
+  const users = [];
   const docsRef = collection(db, 'users')
-  const q = query(docsRef,where('username', '==', username))
-  const querySnapshot = await getDocs(q)
-  querySnapshot.forEach(doc => {
-    users.push(doc.data())
-  })
-  
-  return users.length ? users[0].uid : null
+  const q = query(docsRef, where("username", "==", username));
+
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => {
+    
+    users.push(doc.data());
+  });
+  return users.length > 0 ? users[0].uid : null;
 }
 
 export async function registerNewUser(user){
@@ -73,5 +74,32 @@ export async function getUserInfo(uid){
     return document.data()
   } catch (error) {
     
+  }
+}
+
+export async function insertNewLink(link){
+  try {
+    const docRef = collection(db, 'links');
+    const res = await addDoc(docRef, link);
+    return res;
+  } catch (error) {
+    
+  }
+}
+
+export async function getLinks(uid){
+  const links = []
+  try {
+    const collectionRef = collection(db, 'links')
+    const q = query(collectionRef, where('uid', '==', uid))
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach(doc => {
+      const link = {... doc.data()}
+      link.docId = doc.id
+      links.push(link)
+    })
+    return links 
+  } catch (error) {
+    console.error(error)
   }
 }
