@@ -11,7 +11,7 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
 
     useEffect( () => {
         
-        onAuthStateChanged(auth, async (user) => {
+        onAuthStateChanged(auth, async (user ) => {
             if (user){
                 console.log(user.displayName)
                 const inRegistered = await userExists(user.uid)
@@ -23,7 +23,7 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
                     }else {
                         onUserNotRegistered(userInfo)
                     }
-                    
+                    onUserLoggedIn(user)
                 } else {
                     //TODO: redirigir a choose username  
                     await registerNewUser({
