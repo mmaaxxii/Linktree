@@ -122,3 +122,25 @@ export async function deleteLink(docId){
     console.error(error)
   }
 }
+
+export async function setUserProfilePhoto(uid, file){
+  try {
+    const imageRef = ref(storage, `images/${uid}`);
+    const resUpload = await uploadBytes(imageRef, file);
+    return resUpload;
+    
+  } catch (error) {
+    console.error(error)
+  }
+
+}
+
+export async function getProfilePhotoUrl(profilePicture){
+  try {
+    const profileRef = ref(storage, profilePicture)
+    const url = await getDownloadURL(profileRef)
+    return url
+  } catch (error) {
+    console.error(error)
+  }
+}
