@@ -1,9 +1,10 @@
-import AuthProvider from "../components/authProvider"
-import { useNavigate, Link } from "react-router-dom"
-import {useState} from "react"
-import DashboardWrapper from "../components/dashboardWrapper"
-import { v4 as uuidv4 } from "uuid"
-import { getLinks, insertNewLink } from "../firebase/firebase"
+import AuthProvider from "../components/authProvider";
+import { useNavigate } from "react-router-dom";
+import {useState} from "react";
+import DashboardWrapper from "../components/dashboardWrapper";
+import { v4 as uuidv4 } from "uuid";
+import { getLinks, insertNewLink, updateLink , deleteLink } from "../firebase/firebase";
+import Link from '../components/link';
 
 export default function DashboardView() {
     const navigate = useNavigate()
@@ -19,7 +20,9 @@ export default function DashboardView() {
         const resLinks = await getLinks(user.uid)
         setLinks([...resLinks])
     }
+
     function handleUserNotRegistered(user){
+       
         navigate('/login')
     }
     function handleUserNotLoggedIn(){
@@ -69,6 +72,18 @@ export default function DashboardView() {
         
     }
 
+    async function handleDeleteLink(docId) { 
+        await deleteLink(docId)
+        const tmp = links.filter(link => link.docId !== docId)
+        setLinks([... tmp])
+    }
+
+    async function handleUpdateLink(docId, title, url){ 
+        const link = links.find(item => item.docId === docId)
+        link.title = title
+        link.url = url 
+        await updateLink(docId, link)
+    }
 
     return (
         <DashboardWrapper> 
@@ -88,14 +103,16 @@ export default function DashboardView() {
                 <div>
                     {
                         links.map((link) => (
-                            <div key={link.id}> <a href={link.url}>{link.title}</a></div>
+                            
+                            <Link key={link.docId} docId={link.docId} url={link.url} tittle={link.title} onDelete={handleDeleteLink} onUpdate={handleUpdateLink}/>
+                            
                         ))
                     }
                 </div>
             </div>
         </DashboardWrapper>
     ) 
-    
+     
 }
 
 

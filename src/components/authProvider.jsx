@@ -16,6 +16,7 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
                 console.log(user.displayName)
                 const inRegistered = await userExists(user.uid)
                 if (inRegistered) {
+                    
                     //TODO: redirigir a Dashboard 
                     const userInfo = await getUserInfo(user.uid)
                     if(userInfo.processCompleted){
@@ -23,7 +24,6 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
                     }else {
                         onUserNotRegistered(userInfo)
                     }
-                    onUserLoggedIn(user)
                 } else {
                     //TODO: redirigir a choose username  
                     await registerNewUser({
@@ -39,6 +39,6 @@ export default function AuthProvider({children, onUserLoggedIn, onUserNotLoggeed
                 onUserNotLoggeedIn()
              }
         })
-    }, [navigate, onUserLoggedIn, onUserNotLoggeedIn, onUserNotRegistered])
-
+    }, []); 
+    return <div>{children}</div>;
 }

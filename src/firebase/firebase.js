@@ -29,7 +29,6 @@ export const storage = getStorage();
 export async function userExists (uid){
   const docRef = doc(db, 'users', uid)
   const res = await getDoc(docRef)
-  console.log(res)
   return res.exists()
 }
 
@@ -99,6 +98,26 @@ export async function getLinks(uid){
       links.push(link)
     })
     return links 
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function updateLink(docId, link){
+  try {
+    const docRef = doc(db, 'links', docId)
+    const res = await setDoc(docRef, link)
+    return res
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function deleteLink(docId){
+  try {
+    const docRef = doc(db, 'links', docId)
+    const res = await deleteDoc(docRef)
+    return res
   } catch (error) {
     console.error(error)
   }
