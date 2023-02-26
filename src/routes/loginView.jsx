@@ -4,6 +4,7 @@ import {useState} from "react"
 import { auth  } from '../firebase/firebase'
 import { useNavigate } from "react-router-dom"
 import AuthProvider from "../components/authProvider"
+import style from "./loginView.module.css"
 
 export default function LoginView() {
     const navigate = useNavigate()
@@ -20,30 +21,6 @@ export default function LoginView() {
     7: username no existe 
     */
     const [state, setCurrentState] = useState(0)
-
-    /*useEffect( () => {
-        setCurrentState(1)
-        onAuthStateChanged(auth, async (user ) => {
-            if (user){
-                console.log(user.displayName)
-                const inRegistered = await userExists(user.uid)
-                if (inRegistered) {
-                    //TODO: redirigir a Dashboard 
-                    navigate('/dashboard')
-                    setCurrentState(2)
-                } else {
-                    //TODO: redirigir a choose username  
-                    navigate('/choose-username')
-                    setCurrentState(3)
-                }            
-             }else {
-    
-                setCurrentState(4)
-                console.log("No hay ningun usuario autenticado.")
-             }
-        })
-    }, [navigate])*/
-
 
     async function handleOnClick () {
         const googleProvider = new GoogleAuthProvider()
@@ -88,7 +65,7 @@ export default function LoginView() {
     }
 
     if (state === 4){
-        return <div> <button onClick={handleOnClick}> Login with google</button> </div>
+        return <div className={style.loginView}> <div><h1>Link Tree</h1></div> <button className={style.provider} onClick={handleOnClick}> Login with google</button> </div>
     }
     
     if (state === 5){

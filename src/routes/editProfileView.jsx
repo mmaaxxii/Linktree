@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {React,  useState , useRef} from "react";
 import { async } from "@firebase/util";
 import { setUserProfilePhoto , updateUser , getProfilePhotoUrl} from "../firebase/firebase";
+import style from "./editProfileView.module.css"
 
 
 export default function EditProfileView() {
@@ -64,13 +65,13 @@ export default function EditProfileView() {
             <DashboardWrapper> 
                 <div>
                     <h2>Edit Profile Info</h2>
-                    <div>
+                    <div className={style.profilePictureContainer}>
                         <div>
                             <img src={profileUrl} alt="" width={100}/>
                         </div>
                         <div>
-                            <button onClick={handleOpenProfilePicker}>Choose new profile picture</button>
-                            <input ref={fileRef} type="file" style={{display: 'none'}} onChange={handleChangeFile} />
+                            <button className="btn" onClick={handleOpenProfilePicker}>Choose new profile picture</button>
+                            <input className={style.fileInput} ref={fileRef} type="file" onChange={handleChangeFile} />
                         </div>
                     </div>
                 </div>        

@@ -1,5 +1,6 @@
 
 import {React , useState, useRef , useEffect} from 'react'
+import style from "./link.module.css"
 
 export default function Link({docId , tittle, url , onDelete, onUpdate}){
     const [currentTittle, setCurrentTittle] = useState(tittle);
@@ -54,9 +55,9 @@ export default function Link({docId , tittle, url , onDelete, onUpdate}){
         onDelete(docId)
     }
 
-    return (<div key={docId}> 
-                <div>
-                    <div>
+    return (<div className={style.link} key={docId}> 
+                <div className={style.linkInfo}>
+                    <div className={style.linkTitle}>
                         {editTittle ? (
                         <>
                         <input 
@@ -66,12 +67,12 @@ export default function Link({docId , tittle, url , onDelete, onUpdate}){
                             onBlur={handleBlurTitle}
                             /></> 
                             ) : (
-                            <button onClick={handleEditTittle}>Edit</button> 
+                            <><button className={style.btnEdit} onClick={handleEditTittle}><span className='material-icons'>edit</span></button> {currentTittle} </> 
                             )  }
                         
-                        {currentTittle}
+                        
                     </div> 
-                    <div>
+                    <div className={style.linkUrl}>
                         {editUrl ? (
                         <>
                         <input 
@@ -79,13 +80,12 @@ export default function Link({docId , tittle, url , onDelete, onUpdate}){
                             value={currentUrl} 
                             onChange={handleChangeUrl}
                             onBlur={handleBlurUrl}
-                            /> </> ): <button onClick={handleEditUrl}>Edit</button> }
-                        
-                        {currentUrl}
+                            /> </> ): (<><button className={style.btnEdit} onClick={handleEditUrl}><span className='material-icons'>edit</span></button> {currentUrl} </>) }
+                            
                     </div>    
                 </div>
-                <div>
-                    <button onClick={handleDelete}>Delete</button>
+                <div className={style.linkActions}>
+                    <button className={style.btnDelete} onClick={handleDelete}><span className='material-icons'>delete</span></button>
                 </div>
             </div>)
 }
